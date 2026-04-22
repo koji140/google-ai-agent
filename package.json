@@ -1,0 +1,16 @@
+{
+  "name": "google-ai-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Google Workspace-native AI agent operations PoC",
+  "scripts": {
+    "clasp:login": "clasp login",
+    "clasp:pull": "clasp pull",
+    "clasp:push": "clasp push",
+    "clasp:open": "clasp open"
+  },
+  "devDependencies": {
+    "@google/clasp": "^3.0.6-alpha"
+  }
+}
+

@@ -90,6 +90,7 @@ GitHub方式（差分管理・コードレビュー・CI/CD）は強力だが、
 9. **[実装ロードマップ](docs/implementation-roadmap.md)** - 進め方
 10. **[リスクと制約](docs/risks-and-limitations.md)** - 注意点
 11. **[次のアクション](docs/next-actions.md)** - すぐやること
+12. **[開発セットアップ](docs/development-setup.md)** - Phase 1 PoCのローカル開発手順
 
 ---
 
@@ -108,6 +109,7 @@ GitHub方式（差分管理・コードレビュー・CI/CD）は強力だが、
 | [docs/auto-ingestion-patterns.md](docs/auto-ingestion-patterns.md) | 自動入力パターンの一覧と実装観点 |
 | [docs/risks-and-limitations.md](docs/risks-and-limitations.md) | Google Workspace方式の弱点とリスク |
 | [docs/next-actions.md](docs/next-actions.md) | 次に着手すべき具体タスク |
+| [docs/development-setup.md](docs/development-setup.md) | Apps Script + claspでPhase 1 PoCを開発する手順 |
 
 ---
 
