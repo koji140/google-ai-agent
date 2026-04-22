@@ -5,6 +5,18 @@ const CONFIG_KEYS = {
 };
 
 const DEFAULT_LEDGER_SHEET_NAME = '文書台帳';
+const POC_FOLDER_NAMES = [
+  '00_業務ハブ',
+  '01_正本文書',
+  '02_案件管理DB',
+  '03_議事録_打合せ',
+  '04_判断ログ',
+  '05_手順書_テンプレート',
+  '06_大野さん_潮田さん作業',
+  '07_検証用サンプル案件',
+  '99_システム_ログ'
+];
+
 const LEDGER_HEADERS = [
   'ファイルID',
   'ファイル名',
@@ -27,9 +39,35 @@ const LEDGER_HEADERS = [
 function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu('AI Agent')
+    .addItem('PoCフォルダ構成を作成', 'createKinsetsuPocFolderStructure')
     .addItem('文書台帳を同期', 'syncDocumentLedger')
     .addItem('1時間ごとの同期を設定', 'installHourlyTrigger')
     .addToUi();
+}
+
+function createKinsetsuPocFolderStructure() {
+  const config = getConfig_();
+  const rootFolder = DriveApp.getFolderById(config.sourceFolderId);
+  const existingFolderNames = getChildFolderNames_(rootFolder);
+  const created = [];
+  const skipped = [];
+
+  POC_FOLDER_NAMES.forEach((folderName) => {
+    if (existingFolderNames.has(folderName)) {
+      skipped.push(folderName);
+      return;
+    }
+
+    rootFolder.createFolder(folderName);
+    existingFolderNames.add(folderName);
+    created.push(folderName);
+  });
+
+  return {
+    rootFolder: rootFolder.getName(),
+    created,
+    skipped
+  };
 }
 
 function syncDocumentLedger() {
@@ -138,6 +176,17 @@ function scanFolder_(folder, folderPath, existingFileIds, rows) {
     const childFolder = folders.next();
     scanFolder_(childFolder, `${folderPath}/${childFolder.getName()}`, existingFileIds, rows);
   }
+}
+
+function getChildFolderNames_(folder) {
+  const folderNames = new Set();
+  const folders = folder.getFolders();
+
+  while (folders.hasNext()) {
+    folderNames.add(folders.next().getName());
+  }
+
+  return folderNames;
 }
 
 function buildLedgerRow_(file, folderPath) {

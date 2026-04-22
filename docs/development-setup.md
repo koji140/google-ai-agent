@@ -24,7 +24,7 @@ Copy-Item .clasp.json.example .clasp.json
 
 ### 1. Driveフォルダ
 
-`docs/kinsetsu-workspace-reproduction-poc.md` の構成に沿って、PoC用フォルダを作る。
+PoCルートフォルダを作る。配下フォルダはApps Scriptの `createKinsetsuPocFolderStructure` で作成できる。
 
 ```text
 kinsetsu-workspace-agent-poc/
@@ -38,6 +38,8 @@ kinsetsu-workspace-agent-poc/
 ├── 07_検証用サンプル案件/
 └── 99_システム_ログ/
 ```
+
+手動で配下フォルダを作る場合も、上記の構成にそろえる。
 
 ### 2. 文書台帳Sheet
 
@@ -62,6 +64,8 @@ npm run clasp:open
 
 Apps Scriptエディタで `syncDocumentLedger` を手動実行し、初回の権限承認を行う。
 
+PoCルート配下のフォルダ構成を作る場合は、Apps Scriptエディタで `createKinsetsuPocFolderStructure` を手動実行する。すでに存在するフォルダはスキップされる。
+
 ## トリガー設定
 
 Apps Scriptエディタ、または文書台帳Sheetのカスタムメニュー `AI Agent` から `1時間ごとの同期を設定` を実行する。
@@ -72,6 +76,7 @@ Apps Scriptエディタ、または文書台帳Sheetのカスタムメニュー 
 - ファイルIDで重複登録を防止
 - 新規ファイルを文書台帳に追記
 - フォルダ名・ファイル名から種別を簡易判定
+- PoCルート配下の標準フォルダ構成を作成
 - 1時間ごとの時間トリガー作成
 - Sheet上のカスタムメニュー追加
 
