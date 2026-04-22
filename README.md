@@ -100,6 +100,7 @@ GitHub方式（差分管理・コードレビュー・CI/CD）は強力だが、
 15. **[リスクと制約](docs/risks-and-limitations.md)** - 注意点
 16. **[次のアクション](docs/next-actions.md)** - すぐやること
 17. **[開発セットアップ](docs/development-setup.md)** - Phase 1 PoCのローカル開発手順
+18. **[Codex作業ログ・Antigravity引き継ぎ](docs/session-log-20260423-codex-handoff.md)** - ここまでの作業経緯と次アクション
 
 ---
 
@@ -124,6 +125,7 @@ GitHub方式（差分管理・コードレビュー・CI/CD）は強力だが、
 | [docs/risks-and-limitations.md](docs/risks-and-limitations.md) | Google Workspace方式の弱点とリスク |
 | [docs/next-actions.md](docs/next-actions.md) | 次に着手すべき具体タスク |
 | [docs/development-setup.md](docs/development-setup.md) | Apps Script + claspでPhase 1 PoCを開発する手順 |
+| [docs/session-log-20260423-codex-handoff.md](docs/session-log-20260423-codex-handoff.md) | Codexでの作業ログ、判断経緯、Antigravityへの引き継ぎ |
 
 ---
 
