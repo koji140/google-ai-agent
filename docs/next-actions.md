@@ -2,7 +2,7 @@
 
 ## 現在のステータス
 
-設計レポジトリの初期構築が完了した段階。ここから実装に向けて動き出すための、具体的な次のステップを記述する。
+設計レポジトリの初期構築と、Phase 1向けの最小Apps Script実装が完了した段階。ここからGoogle Workspace上のPoC環境を作り、実際にDrive → Sheets同期を動かす。
 
 ---
 
@@ -52,9 +52,9 @@ google-ai-agent-poc/
 
 ---
 
-### アクション3: 最小限のApps Scriptの作成
+### アクション3: 最小限のApps ScriptをApps Scriptプロジェクトへ反映
 
-**やること**: Drive監視 → Sheets登録の最もシンプルなスクリプトを作成する。
+**やること**: リポジトリに追加済みのDrive監視 → Sheets登録スクリプトを、Apps Scriptプロジェクトへ反映する。
 
 最小限の仕様:
 1. 指定フォルダのファイル一覧を取得
@@ -62,8 +62,13 @@ google-ai-agent-poc/
 3. 新規ファイルを台帳に行追加
 4. 1時間ごとの時間トリガーを設定
 
-**所要時間**: 2〜3時間（開発 + テスト）
-**成果物**: 動作するApps Script
+**所要時間**: 30分〜1時間（clasp設定 + 初回承認 + テスト）
+**成果物**: Google Workspace上で動作するApps Script
+
+補足:
+- ローカルの実装は `apps-script/src/Code.js` にある
+- 手順は `docs/development-setup.md` を参照する
+- 次の改善として、実行ログSheetとエラーログSheetを追加する
 
 ---
 
@@ -177,7 +182,7 @@ google-ai-agent-poc/
 |------|-----------|---------|---------|
 | 1 | Driveフォルダの作成 | Phase 1 | なし |
 | 2 | 文書台帳Sheetの作成 | Phase 1 | なし |
-| 3 | 最小限のApps Script | Phase 1 | 1, 2に依存 |
+| 3 | 最小限のApps Scriptを反映 | Phase 1 | 1, 2に依存 |
 | 4 | 議事録テンプレートの作成 | Phase 2準備 | なし |
 | 5 | ToDo台帳・決定事項台帳の作成 | Phase 2準備 | なし |
 | 6 | Gemini API接続確認 | Phase 2 | なし |
@@ -193,5 +198,6 @@ Phase 1のPoCとして、以下が実現できれば成功とする:
 2. 台帳の内容が正確である（ファイル名、日付、URL等）
 3. 重複登録がない
 4. 手動で台帳を更新する必要がない
+5. 実行結果とエラーを後から確認できる
 
 この段階では、Gemini連携は不要。Drive + Sheets + Apps Scriptの3つで動く最小構成を確認する。

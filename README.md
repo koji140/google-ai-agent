@@ -1,14 +1,16 @@
 # google-ai-agent
 
-Google Workspace ネイティブな業務用AIエージェント基盤の設計レポジトリ
+Google Workspace ネイティブな業務エージェントOSの設計・実装レポジトリ
 
 ---
 
 ## このプロジェクトの目的
 
-GitHub や CLI ベースの開発環境ではなく、**Google Workspace（Drive / Sheets / Docs / Apps Script / Gemini）だけ**を使って、業務資料・議事録・HTML・判断ログ・Todo・決定事項を自動で収集・整理・要約・台帳化できる運用基盤を設計する。
+GitHub、CLI、開発者向けAI IDEを業務運用の前提にせず、**Google Workspace（Drive / Sheets / Docs / Apps Script / Gemini）だけ**を使って、業務資料・議事録・HTML・判断ログ・Todo・決定事項を自動で収集・整理・要約・台帳化し、承認付きで実行できる業務エージェント基盤を設計・実装する。
 
-従来の汎用AI活用は「毎回プロンプトを考える」「出力がチャット内で終わる」「保存先や次工程につながらない」といった理由で定着しにくい。本プロジェクトでは、AIを「その場の相談相手」として使うのではなく、**Google Workspace上の業務フローに組み込まれた自社専用AI基盤**として構築する方向で設計を整理する。
+従来の汎用AI活用は「毎回プロンプトを考える」「出力がチャット内で終わる」「保存先や次工程につながらない」といった理由で定着しにくい。本プロジェクトでは、AIを「その場の相談相手」として使うのではなく、**Google Workspace上で考え、分解し、承認を取り、実行し、記録する業務エージェントOS**として構築する。
+
+Antigravityのような開発支援AIは、実装時の補助としては使える。しかし、本プロジェクトの本番運用はIDEやCLIに依存しない。業務ユーザーが使う入口と記録先は、あくまでGoogle Workspaceである。
 
 ---
 
@@ -71,7 +73,7 @@ GitHub方式（差分管理・コードレビュー・CI/CD）は強力だが、
 └──────────────────────────────────────────────────────┘
 ```
 
-**設計思想**: AIそのものを主役にするのではなく、Google Workspaceの業務フローの中に「AI処理」を部品として埋め込む。入力元・処理・出力先・保存先がすべて固定されているため、ユーザーが毎回プロンプトを考える必要がない。
+**設計思想**: AIそのものを主役にするのではなく、Google Workspaceの業務フローの中に「読解・判断候補・承認・実行・記録」を埋め込む。入力元・処理・出力先・保存先が固定されているため、ユーザーが毎回プロンプトを考える必要がない。
 
 ---
 
@@ -81,16 +83,20 @@ GitHub方式（差分管理・コードレビュー・CI/CD）は強力だが、
 
 1. **[全体像](docs/overview.md)** - プロジェクトの背景と目指す状態
 2. **[汎用AIが定着しない理由](docs/why-general-ai-does-not-stick.md)** - 課題認識
-3. **[Google Workspace エージェントアーキテクチャ](docs/google-workspace-agent-architecture.md)** - 解決策の全体設計
-4. **[各コンポーネントの役割](docs/role-of-drive-sheets-docs-gas-gemini.md)** - Drive / Sheets / Docs / GAS / Gemini の責務
-5. **[GitHub方式との比較](docs/comparison-github-vs-google-workspace.md)** - 位置づけの理解
-6. **[近接施工協議スタイルのユースケース](docs/kinsetsu-process-style-use-case.md)** - 具体例で理解
-7. **[自動入力パターン](docs/auto-ingestion-patterns.md)** - 実装の入口
-8. **[Drive正本運用](docs/drive-as-source-of-truth.md)** - 運用ルール設計
-9. **[実装ロードマップ](docs/implementation-roadmap.md)** - 進め方
-10. **[リスクと制約](docs/risks-and-limitations.md)** - 注意点
-11. **[次のアクション](docs/next-actions.md)** - すぐやること
-12. **[開発セットアップ](docs/development-setup.md)** - Phase 1 PoCのローカル開発手順
+3. **[Google環境だけで作る業務エージェント実行基盤](docs/google-only-agent-runtime.md)** - このプロジェクトの中核方針
+4. **[業務エージェントの運用モデル](docs/agent-operating-model.md)** - 入力から記録までの基本サイクル
+5. **[自律度レベル設計](docs/autonomy-levels.md)** - どこまで自動実行するか
+6. **[Google Workspace エージェントアーキテクチャ](docs/google-workspace-agent-architecture.md)** - 解決策の全体設計
+7. **[各コンポーネントの役割](docs/role-of-drive-sheets-docs-gas-gemini.md)** - Drive / Sheets / Docs / GAS / Gemini の責務
+8. **[GitHub方式との比較](docs/comparison-github-vs-google-workspace.md)** - 位置づけの理解
+9. **[近接施工協議スタイルのユースケース](docs/kinsetsu-process-style-use-case.md)** - 具体例で理解
+10. **[自動入力パターン](docs/auto-ingestion-patterns.md)** - 実装の入口
+11. **[Drive正本運用](docs/drive-as-source-of-truth.md)** - 運用ルール設計
+12. **[Google Workspace業務エージェントの制約](docs/workspace-agent-limitations.md)** - Workspaceだけで作る場合の制約
+13. **[実装ロードマップ](docs/implementation-roadmap.md)** - 進め方
+14. **[リスクと制約](docs/risks-and-limitations.md)** - 注意点
+15. **[次のアクション](docs/next-actions.md)** - すぐやること
+16. **[開発セットアップ](docs/development-setup.md)** - Phase 1 PoCのローカル開発手順
 
 ---
 
@@ -100,6 +106,9 @@ GitHub方式（差分管理・コードレビュー・CI/CD）は強力だが、
 |---|---|
 | [docs/overview.md](docs/overview.md) | プロジェクト全体像・背景・目指す状態 |
 | [docs/why-general-ai-does-not-stick.md](docs/why-general-ai-does-not-stick.md) | 汎用AIが業務で定着しない構造的理由の分析 |
+| [docs/google-only-agent-runtime.md](docs/google-only-agent-runtime.md) | Google Workspaceだけで業務エージェントを動かす中核方針 |
+| [docs/agent-operating-model.md](docs/agent-operating-model.md) | 入力、読解、判断候補、承認、実行、記録の運用モデル |
+| [docs/autonomy-levels.md](docs/autonomy-levels.md) | 自律実行レベルと承認境界の設計 |
 | [docs/google-workspace-agent-architecture.md](docs/google-workspace-agent-architecture.md) | Google製品によるAIエージェント基盤の全体設計 |
 | [docs/role-of-drive-sheets-docs-gas-gemini.md](docs/role-of-drive-sheets-docs-gas-gemini.md) | 各Google製品の責務・得意不得意・組み合わせ方 |
 | [docs/comparison-github-vs-google-workspace.md](docs/comparison-github-vs-google-workspace.md) | GitHub方式との比較と位置づけ |
@@ -107,6 +116,7 @@ GitHub方式（差分管理・コードレビュー・CI/CD）は強力だが、
 | [docs/implementation-roadmap.md](docs/implementation-roadmap.md) | フェーズ別の実装計画 |
 | [docs/drive-as-source-of-truth.md](docs/drive-as-source-of-truth.md) | Drive正本運用の考え方とルール設計 |
 | [docs/auto-ingestion-patterns.md](docs/auto-ingestion-patterns.md) | 自動入力パターンの一覧と実装観点 |
+| [docs/workspace-agent-limitations.md](docs/workspace-agent-limitations.md) | Workspace中心で実装する場合の制約と対策 |
 | [docs/risks-and-limitations.md](docs/risks-and-limitations.md) | Google Workspace方式の弱点とリスク |
 | [docs/next-actions.md](docs/next-actions.md) | 次に着手すべき具体タスク |
 | [docs/development-setup.md](docs/development-setup.md) | Apps Script + claspでPhase 1 PoCを開発する手順 |
@@ -136,7 +146,7 @@ GitHub方式（差分管理・コードレビュー・CI/CD）は強力だが、
 
 ## 注意事項
 
-- これは初期構想フェーズの設計レポジトリであり、実装コードはまだ含まれていない
+- これは初期PoCフェーズの設計・実装レポジトリである
 - 事実と仮説を区別して記述している
-- Google製品だけで完結する前提で設計している（GitHub/CLIは運用基盤としては使わない）
+- Google製品だけで完結する前提で設計している（GitHub/CLI/AI IDEは運用基盤としては使わない）
 - 将来の実装はApps Script + Gemini APIが中心になる想定
