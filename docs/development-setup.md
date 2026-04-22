@@ -1,12 +1,12 @@
 # 開発セットアップ
 
-このリポジトリは設計ドキュメント中心の初期状態から、Phase 1 PoC（Driveフォルダをスキャンして文書台帳Sheetへ登録）をローカルで開発できる最小構成を追加している。
+このリポジトリは、Phase 1 PoC（`kinsetsu-process` 再現用Driveフォルダをスキャンして文書台帳Sheetへ登録）をローカルで開発できる最小構成を含んでいる。
 
 ## 前提
 
 - Node.js / npm
 - Googleアカウント
-- Google DriveのPoC用フォルダ
+- Google Driveの `kinsetsu-workspace-agent-poc` フォルダ
 - Google Sheetsの文書台帳
 - Apps Script APIの有効化
 
@@ -24,17 +24,19 @@ Copy-Item .clasp.json.example .clasp.json
 
 ### 1. Driveフォルダ
 
-`docs/next-actions.md` の構成に沿って、PoC用フォルダを作る。
+`docs/kinsetsu-workspace-reproduction-poc.md` の構成に沿って、PoC用フォルダを作る。
 
 ```text
-google-ai-agent-poc/
-├── 01_打ち合わせ資料/
-├── 02_議事録/
-├── 03_HTML/
-├── 04_成果物/
-├── 05_判断ログ/
-├── 06_テンプレート/
-└── 99_台帳/
+kinsetsu-workspace-agent-poc/
+├── 00_業務ハブ/
+├── 01_正本文書/
+├── 02_案件管理DB/
+├── 03_議事録_打合せ/
+├── 04_判断ログ/
+├── 05_手順書_テンプレート/
+├── 06_大野さん_潮田さん作業/
+├── 07_検証用サンプル案件/
+└── 99_システム_ログ/
 ```
 
 ### 2. 文書台帳Sheet
@@ -80,4 +82,3 @@ Apps Scriptエディタ、または文書台帳Sheetのカスタムメニュー 
 - エラーログSheet
 - 大量ファイル向けの分割実行
 - Drive Push通知によるリアルタイム検知
-

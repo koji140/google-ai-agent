@@ -13,8 +13,13 @@ const LEDGER_HEADERS = [
   '更新日',
   'フォルダパス',
   'URL',
+  '元repoパス',
+  '正本区分',
+  '業務フェーズ',
+  '主な利用者',
+  '自律度',
+  '承認状態',
   '要約',
-  'ステータス',
   '登録方法',
   '備考'
 ];
@@ -145,7 +150,12 @@ function buildLedgerRow_(file, folderPath) {
     folderPath,
     file.getUrl(),
     '',
-    'ドラフト',
+    detectCanonicalClass_(folderPath),
+    detectBusinessPhase_(folderPath, file.getName()),
+    detectPrimaryUsers_(folderPath),
+    'L1',
+    '確認待ち',
+    '',
     '自動',
     ''
   ];
@@ -154,12 +164,48 @@ function buildLedgerRow_(file, folderPath) {
 function detectDocumentType_(folderPath, fileName) {
   const text = `${folderPath}/${fileName}`;
 
-  if (text.includes('打ち合わせ')) return '打ち合わせ資料';
-  if (text.includes('議事録')) return '議事録';
-  if (text.includes('HTML') || text.toLowerCase().endsWith('.html')) return 'HTML';
-  if (text.includes('成果物')) return '成果物';
+  if (text.includes('正本文書')) return '正本文書';
+  if (text.includes('案件管理DB')) return '案件管理DB';
+  if (text.includes('議事録') || text.includes('打合せ')) return '議事録';
   if (text.includes('判断ログ')) return '判断ログ';
+  if (text.includes('手順書') || text.includes('テンプレート')) return '手順書';
+  if (text.includes('大野') || text.includes('潮田') || text.includes('担当者作業')) return '担当者作業';
+  if (text.includes('サンプル案件')) return 'サンプル案件';
+  if (text.includes('システム') || text.includes('ログ')) return 'システムログ';
+  if (text.toLowerCase().endsWith('.html')) return 'HTML';
 
   return '未分類';
 }
 
+function detectCanonicalClass_(folderPath) {
+  if (folderPath.includes('正本文書')) return '正本';
+  if (folderPath.includes('判断ログ')) return 'ログ';
+  if (folderPath.includes('大野') || folderPath.includes('潮田')) return '作業用';
+  if (folderPath.includes('サンプル案件')) return 'サンプル';
+  if (folderPath.includes('システム') || folderPath.includes('ログ')) return 'ログ';
+  if (folderPath.includes('議事録') || folderPath.includes('打合せ')) return '派生';
+
+  return '作業用';
+}
+
+function detectBusinessPhase_(folderPath, fileName) {
+  const text = `${folderPath}/${fileName}`.toLowerCase();
+
+  if (text.includes('phase2') || text.includes('フェーズ2')) return 'Phase 2';
+  if (text.includes('phase1') || text.includes('フェーズ1')) return 'Phase 1';
+  if (text.includes('poc')) return 'PoC';
+
+  return '共通';
+}
+
+function detectPrimaryUsers_(folderPath) {
+  if (folderPath.includes('大野') && folderPath.includes('潮田')) return '大野さん/潮田さん';
+  if (folderPath.includes('大野')) return '大野さん';
+  if (folderPath.includes('潮田')) return '潮田さん';
+  if (folderPath.includes('正本文書')) return '石丸/アソシ';
+  if (folderPath.includes('案件管理DB')) return 'アソシ';
+  if (folderPath.includes('議事録') || folderPath.includes('打合せ')) return '石丸/アソシ/本社';
+  if (folderPath.includes('判断ログ')) return '石丸/アソシ/本社';
+
+  return '石丸';
+}

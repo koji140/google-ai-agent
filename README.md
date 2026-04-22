@@ -88,17 +88,18 @@ GitHub方式（差分管理・コードレビュー・CI/CD）は強力だが、
 3. **[Google環境だけで作る業務エージェント実行基盤](docs/google-only-agent-runtime.md)** - このプロジェクトの中核方針
 4. **[業務エージェントの運用モデル](docs/agent-operating-model.md)** - 入力から記録までの基本サイクル
 5. **[自律度レベル設計](docs/autonomy-levels.md)** - どこまで自動実行するか
-6. **[Google Workspace エージェントアーキテクチャ](docs/google-workspace-agent-architecture.md)** - 解決策の全体設計
-7. **[各コンポーネントの役割](docs/role-of-drive-sheets-docs-gas-gemini.md)** - Drive / Sheets / Docs / GAS / Gemini の責務
-8. **[GitHub方式との比較](docs/comparison-github-vs-google-workspace.md)** - 位置づけの理解
-9. **[近接施工協議スタイルのユースケース](docs/kinsetsu-process-style-use-case.md)** - 具体例で理解
-10. **[自動入力パターン](docs/auto-ingestion-patterns.md)** - 実装の入口
-11. **[Drive正本運用](docs/drive-as-source-of-truth.md)** - 運用ルール設計
-12. **[Google Workspace業務エージェントの制約](docs/workspace-agent-limitations.md)** - Workspaceだけで作る場合の制約
-13. **[実装ロードマップ](docs/implementation-roadmap.md)** - 進め方
-14. **[リスクと制約](docs/risks-and-limitations.md)** - 注意点
-15. **[次のアクション](docs/next-actions.md)** - すぐやること
-16. **[開発セットアップ](docs/development-setup.md)** - Phase 1 PoCのローカル開発手順
+6. **[kinsetsu-process Google Workspace再現PoC](docs/kinsetsu-workspace-reproduction-poc.md)** - 最初の実証対象とDrive構成
+7. **[Google Workspace エージェントアーキテクチャ](docs/google-workspace-agent-architecture.md)** - 解決策の全体設計
+8. **[各コンポーネントの役割](docs/role-of-drive-sheets-docs-gas-gemini.md)** - Drive / Sheets / Docs / GAS / Gemini の責務
+9. **[GitHub方式との比較](docs/comparison-github-vs-google-workspace.md)** - 位置づけの理解
+10. **[近接施工協議スタイルのユースケース](docs/kinsetsu-process-style-use-case.md)** - 具体例で理解
+11. **[自動入力パターン](docs/auto-ingestion-patterns.md)** - 実装の入口
+12. **[Drive正本運用](docs/drive-as-source-of-truth.md)** - 運用ルール設計
+13. **[Google Workspace業務エージェントの制約](docs/workspace-agent-limitations.md)** - Workspaceだけで作る場合の制約
+14. **[実装ロードマップ](docs/implementation-roadmap.md)** - 進め方
+15. **[リスクと制約](docs/risks-and-limitations.md)** - 注意点
+16. **[次のアクション](docs/next-actions.md)** - すぐやること
+17. **[開発セットアップ](docs/development-setup.md)** - Phase 1 PoCのローカル開発手順
 
 ---
 
@@ -111,6 +112,7 @@ GitHub方式（差分管理・コードレビュー・CI/CD）は強力だが、
 | [docs/google-only-agent-runtime.md](docs/google-only-agent-runtime.md) | Google Workspaceだけで業務エージェントを動かす中核方針 |
 | [docs/agent-operating-model.md](docs/agent-operating-model.md) | 入力、読解、判断候補、承認、実行、記録の運用モデル |
 | [docs/autonomy-levels.md](docs/autonomy-levels.md) | 自律実行レベルと承認境界の設計 |
+| [docs/kinsetsu-workspace-reproduction-poc.md](docs/kinsetsu-workspace-reproduction-poc.md) | kinsetsu-processをGoogle Workspace上に再現するPoC設計 |
 | [docs/google-workspace-agent-architecture.md](docs/google-workspace-agent-architecture.md) | Google製品によるAIエージェント基盤の全体設計 |
 | [docs/role-of-drive-sheets-docs-gas-gemini.md](docs/role-of-drive-sheets-docs-gas-gemini.md) | 各Google製品の責務・得意不得意・組み合わせ方 |
 | [docs/comparison-github-vs-google-workspace.md](docs/comparison-github-vs-google-workspace.md) | GitHub方式との比較と位置づけ |
