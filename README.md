@@ -47,3 +47,9 @@ GitHub、CLI、開発者向けAI IDEを業務運用の前提にせず、**Google
 2. `npx clasp push`
 3. Script Properties に `GITHUB_TOKEN`, `GITHUB_REPO` を設定。
 4. `setupDriveTrigger` を実行。
+
+## 現在の注意
+
+`koji140/kinsetsu-process` の `Deploy HP from Drive (via GAS)` workflow は、Cloudflare認証エラーの連続発生を止めるため一時停止中です。
+
+再開前に GitHub Secrets の `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` を確認し、1回だけ手動テストしてください。GAS側は、HTML部品に変更がない場合は `repository_dispatch` をスキップするよう修正済みです。

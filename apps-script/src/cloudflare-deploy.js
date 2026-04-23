@@ -6,6 +6,14 @@
  * メイン関数：Driveからコンポーネントを読み込み、GitHub Actionsをキック
  */
 function deployHpViaGitHub() {
+  return deployHpViaGitHub_(false);
+}
+
+function forceDeployHpViaGitHub() {
+  return deployHpViaGitHub_(true);
+}
+
+function deployHpViaGitHub_(force) {
   const props = PropertiesService.getScriptProperties();
   const GITHUB_TOKEN = props.getProperty('GITHUB_TOKEN');
   const GITHUB_REPO  = props.getProperty('GITHUB_REPO') || 'koji140/kinsetsu-process';
@@ -23,12 +31,23 @@ function deployHpViaGitHub() {
     return '❌ Drive 読み込み失敗';
   }
 
+  const currentDigest = digestPayload_(components);
+  const lastDispatchedDigest = props.getProperty('HP_LAST_DISPATCH_DIGEST');
+
+  if (!force && currentDigest === lastDispatchedDigest) {
+    const msg = '✅ HTML部品に変更がないため、GitHub Actions起動をスキップしました。';
+    Logger.log(msg);
+    return msg;
+  }
+
   Logger.log('✅ HTML 部品読み込み完了。GitHub Actions を起動します...');
 
   // GitHub Repository Dispatch API を叩く
   const result = triggerGitHubAction_(GITHUB_TOKEN, GITHUB_REPO, components);
   
   if (result.success) {
+    props.setProperty('HP_LAST_DISPATCH_DIGEST', currentDigest);
+    props.setProperty('HP_LAST_DISPATCHED_AT', new Date().toISOString());
     Logger.log('🚀 GitHub Actions の起動に成功しました！');
     Logger.log('数分後に https://kinsetsu-hp-preview.pages.dev/ が更新されます。');
     return '✅ デプロイ指示完了';
@@ -36,6 +55,18 @@ function deployHpViaGitHub() {
     Logger.log('❌ GitHub Actions 起動失敗: ' + result.error);
     return '❌ エラー: ' + result.error;
   }
+}
+
+function digestPayload_(payload) {
+  const json = JSON.stringify(payload);
+  const bytes = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, json);
+
+  return bytes
+    .map((byte) => {
+      const normalized = byte < 0 ? byte + 256 : byte;
+      return normalized.toString(16).padStart(2, '0');
+    })
+    .join('');
 }
 
 /**
@@ -121,14 +152,32 @@ function getNestedFolder_(root, names) {
  * 変更検知トリガーの設定
  */
 function setupDriveTrigger() {
-  // すべての既存トリガーをクリア
-  ScriptApp.getProjectTriggers().forEach(t => ScriptApp.deleteTrigger(t));
+  deleteHpDeployTriggers_();
 
-  // 1分ごとに変更をチェック（DriveのonChangeは信頼性が低いため、時間主導の方が確実）
+  // DriveのonChangeは環境差があるため、時間主導で変更有無だけを確認する。
   ScriptApp.newTrigger('deployHpViaGitHub')
     .timeBased()
-    .everyMinutes(1) // とりあえず1分ごと。必要に応じて調整
+    .everyMinutes(5)
     .create();
 
-  Logger.log('✅ 自動デプロイトリガー（1分間隔）を設定しました');
+  Logger.log('✅ 自動デプロイトリガー（5分間隔）を設定しました');
+}
+
+function disableHpDeployTrigger() {
+  const deleted = deleteHpDeployTriggers_();
+  Logger.log(`✅ HP自動デプロイトリガーを ${deleted} 件削除しました`);
+  return { deleted };
+}
+
+function deleteHpDeployTriggers_() {
+  let deleted = 0;
+
+  ScriptApp.getProjectTriggers().forEach((trigger) => {
+    if (trigger.getHandlerFunction() === 'deployHpViaGitHub') {
+      ScriptApp.deleteTrigger(trigger);
+      deleted += 1;
+    }
+  });
+
+  return deleted;
 }
