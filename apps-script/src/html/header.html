@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>近接施工のご案内｜法人向け情報｜首都高速道路株式会社</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            shutoko: {
+              green: '#006B3F', /* 首都高グリーン */
+              dark: '#004D2D',
+              navy: '#1A365D', /* 落ち着いたネイビー（新ボタンカラー） */
+              light: '#F4F7F5', /* 非常に淡いグリーン背景 */
+              accent: '#C53030' /* 落ち着いた赤 */
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif; -webkit-font-smoothing: antialiased; }
+    
+    .heading-l2 {
+      border-left: 6px solid #006B3F;
+      padding-left: 16px;
+      letter-spacing: 0.05em;
+    }
+    
+    .heading-l3 {
+      border-bottom: 2px solid #006B3F;
+      padding-bottom: 12px;
+      position: relative;
+    }
+    .heading-l3::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: #006B3F;
+    }
+
+    /* 緩やかなアニメーション */
+    .btn-transition {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    @keyframes slide-right {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(6px); }
+    }
+    .hover-arrow:hover svg {
+      animation: slide-right 1s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900 leading-relaxed">
+
+  <header class="bg-white border-b-4 border-shutoko-green sticky top-0 z-50 shadow-sm">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-end">
+      <div>
+        <div class="text-[10px] text-gray-400 mb-1 tracking-tight">Metropolitan Expressway Company Limited.</div>
+        <div class="text-xl md:text-2xl font-bold tracking-widest text-black">首都高速道路株式会社</div>
+      </div>
+      <nav class="hidden lg:flex space-x-8 text-sm font-bold text-gray-600 pb-1">
+        <a href="#" class="hover:text-shutoko-green">企業情報</a>
+        <a href="#" class="hover:text-shutoko-green">IR情報</a>
+        <a href="#" class="hover:text-shutoko-green">首都高の取り組み</a>
+        <a href="#" class="text-shutoko-green border-b-2 border-shutoko-green pb-1">法人向け情報</a>
+        <a href="#" class="hover:text-shutoko-green">採用情報</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-12 md:py-16">
+
+    <div class="text-[11px] text-gray-500 mb-10 flex items-center space-x-2">
+      <a href="#" class="hover:underline">HOME</a> 
+      <span>&gt;</span>
+      <a href="#" class="hover:underline">法人向け情報</a>
+      <span>&gt;</span>
+      <span class="text-gray-800 font-medium">近接施工のご案内</span>
+    </div>
+
+    <div class="mb-12">
+      <div class="mb-2 text-shutoko-green font-bold text-xs tracking-wider">法人向け情報</div>
+      <div class="mb-6 text-gray-400 text-[9px] tracking-[0.2em] uppercase">For Corporate</div>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 heading-l2 leading-tight">近接施工のご案内</h1>
+    </div>
+    
+    <div class="bg-gray-50 p-5 mb-10 text-center text-sm md:text-base font-bold text-gray-700 border-y border-gray-200 tracking-wide">
+      首都高速道路に近接して実施する工事等に関するご案内
+    </div>
+
+    <p class="text-gray-700 mb-12 leading-loose text-sm md:text-base text-justify">
+      高速道路に影響を及ぼす範囲において、隣接する自治体や地権者さま等によって行われる工事や作業のことを「近接施工」といいます。この近接施工に起因する事故や事象は、高速道路施設に影響を与えるだけでなく、作業員の方や高速道路利用者への被害など、取り返しのつかない事態につながる恐れがあります。そのため、弊社が管理する高速道路に影響を及ぼす可能性がある範囲で施工される場合は、あらかじめ弊社と打ち合わせを行い、安全に作業を進めるための手続きをお願いしております。
+    </p>
+
+    <div class="bg-shutoko-light border-l-4 border-shutoko-green p-6 md:p-8 mb-20 rounded-r-lg shadow-sm">
+      <div class="flex items-start">
+        <svg class="w-6 h-6 text-shutoko-green mr-4 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <div>
+          <p class="text-shutoko-dark font-bold text-base md:text-lg mb-3 tracking-tight">近接施工に関するWEBお問合せ（協議申請）について</p>
+          <p class="text-gray-600 text-sm md:text-base leading-relaxed">
+            WEBお問合せフォームへのリンクは、<span class="font-bold text-gray-900 border-b-2 border-shutoko-green pb-0.5 mx-1">ページ下部の「４．近接施工お問合せフォーム」</span>にございます。<br>
+            お手続きをスムーズに進めるため、まずは以下の「１」から順に、必ず内容のご確認をお願いいたします。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-24">
